@@ -1,5 +1,7 @@
 import requests
+import json
 from bs4 import BeautifulSoup
+
 
 headers = {
 'Accept': '*/*',
@@ -13,15 +15,7 @@ headers = {
 
 proxies = {"http":"http://10.144.1.10:8080", "https":"http://10.144.1.10:8080"}
 
-r = requests.get('https://danjuanfunds.com/djmodule/value-center?channel=1300100141', headers=headers, proxies=proxies)
-soup = BeautifulSoup(r.text, 'html.parser')
-#print(soup)
+response = requests.get('https://danjuanfunds.com/djapi/index_eva/dj', headers=headers, proxies=proxies)
 
-fp = open("soup_contents.html","w", encoding='utf-8')
-fp.write(soup.prettify())
-fp.close()
-
-#out_row = soup.find_all('div', attrs={'class':'out-row'})
-#print(out_row)
-
-#in_row = soup.find_all('div', attrs={'class':'in-row'})
+with open('dj.json', 'w', encoding='utf-8') as outfile:
+    json.dump(response.json(), outfile, sort_keys=True, indent=4, ensure_ascii=False)
