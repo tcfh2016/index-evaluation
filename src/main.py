@@ -1,6 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 headers = {
@@ -17,5 +18,9 @@ proxies = {"http":"http://10.144.1.10:8080", "https":"http://10.144.1.10:8080"}
 
 response = requests.get('https://danjuanfunds.com/djapi/index_eva/dj', headers=headers, proxies=proxies)
 
-with open('dj.json', 'w', encoding='utf-8') as outfile:
-    json.dump(response.json(), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+#with open('dj.json', 'w', encoding='utf-8') as outfile:
+#    json.dump(response.json(), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+
+df = pd.DataFrame(response.json()['data']['items'], columns=['index_code', 'name', 'pe', 'pe_percentile', 'pb', 'pb_percentile', 'yeild', 'roe', 'eva_type', 'date'])
+df.to_csv("index_evaluation.csv", encoding='utf_8_sig')
+print(df.columns)
