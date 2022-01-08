@@ -16,9 +16,8 @@ class Scrapper(object):
         'User-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW 64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE'
         }
 
-        proxies = {"http":"http://10.144.1.10:8080", "https":"http://10.144.1.10:8080"}
-        response = requests.get('https://danjuanfunds.com/djapi/index_eva/dj', headers=headers, proxies=proxies)
+        response = requests.get('https://danjuanfunds.com/djapi/index_eva/dj', headers=headers)
 
-        df = pd.DataFrame(response.json()['data']['items'], columns=['index_code', 'name', 'pe', 'pe_percentile', 'pb', 'pb_percentile', 'yeild', 'roe', 'eva_type', 'date'])
+        df = pd.DataFrame(response.json()['data']['items'], columns=['index_code', 'name', 'ttype', 'pe', 'pe_percentile', 'pb', 'pb_percentile', 'yeild', 'roe', 'eva_type', 'date'])
         df.to_csv("index_evaluation.csv", encoding='utf_8_sig')
         return df
