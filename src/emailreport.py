@@ -161,20 +161,20 @@ class HtmlReporter(object):
 
         # 填充邮件头部
         msg['Subject'] = '指数估值 - ' + str(datetime.date.today())
-        msg['From'] = 'xxx'
-        msg['To'] = 'xxx'
+        msg['From'] = 'lianbch@163.com'
+        msg['To'] = 'lianbch@163.com'
 
         # 填充邮件正文
         html = self._head \
                + self.construct_valuation_table('指数估值表', self._data) \
                + self.construct_valuation_table('宽基指数估值表', self._broadindex) \
                + self._tail
-        msg.add_attachment(html, subtype='html')
+        msg.set_content(html, subtype='html')
 
         # 发送邮件
         try:
             mail_server = smtplib.SMTP_SSL('smtp.163.com',port=465)
-            mail_server.login('xxx', 'xxx')
+            mail_server.login('lianbch@163.com', 'FVVFEMTFLXCRLQXS')
             mail_server.send_message(msg)
         except smtplib.SMTPException as ex:
             print("Error: send failure = ", ex)
