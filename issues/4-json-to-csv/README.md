@@ -69,4 +69,4 @@ Then we can use the python list to create pandas DataFrame data structure and us
 
 Reference:
 
-- [](https://www.w3schools.com/python/python_json.asp)
+- [JSON in Python](https://www.w3schools.com/python/python_json.asp)
